@@ -26,16 +26,25 @@ OSBackgroundTaskAddTask( TBgFunction	aFunction,
 						 void *			aUserData)
 {
 	TBgElement bgElement;
+	TBgElement nextElement;
 	bgElement = calloc ( sizeof( * bgElement), 1);
 	if ( ! bgElement )
 		return EFALSE;
-		
-	TBgElement ptr = BgList.First;
-	while (ptr != NULL)
+	
+	if ( BgList.First )
 	{
-		ptr = ptr->next;
+		nextElement = BgList.First;
+		while (nextElement != NULL)
+			nextElement = nextElement->Next;
+			
+		nextElement->Next = bgElement;
+	} else {
+		BgList.First = bgElement;
 	}
-	ptr->next = bgElement;
+	
+	bgElement->Function = aFunction;
+	bgElement->UserData = aUserData;
+	
 	return ETRUE;
 }
 
@@ -46,28 +55,35 @@ OSBackgroundTaskRemove(  TBgFunction	aFunction,
 	if (BgList.First == NULL)
 		return EFALSE;
 		
-	TBgElement ptr = BgList.First;
-	while (ptr != NULL)
+	TBgElement nextElement = BgList.First;
+	while (nextElement)
 	{
-		ptr = ptr->next;
-		if(ptr->next == NULL)
+		if(nextElement->Function == aFunction 
+			&& nextElement->Function == aUserData)
+		{
+			
+		}
+		nextElement = nextElement->Next;
+		if(nextElement->Next == NULL)
 			return EFALSE;
+		
 	}
-	
 	
 	
 	return ETRUE;
 }
 
-TBool
+void
 OSBackgroundTaskExecute( void )
 {
-	if (BgList.First == NULL)
+	if ( !BgList.ExecuteNext ) // End of loop
+		BgList.ExecuteNext = BgList.First;
+		
+	if ( BgList.ExecuteNext )
 	{
-		return EFALSE;
+		BgList.ExecuteNext->Function(BgList.ExecuteNext->UserData);
+		BgList.ExecuteNext = BgList.ExecuteNext->Next;
 	}
-	BgList.First->Function(BgList.First->UserData);
-	
-	return ETRUE;
+		
 }
 

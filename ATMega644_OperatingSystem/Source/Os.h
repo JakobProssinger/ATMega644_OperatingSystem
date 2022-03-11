@@ -8,10 +8,12 @@
 #define OS_H
 
 #include "HTLStddef.h"
-
+#include "OsBackgroundTask.h"
 
 TBool
 OsInit(void);
 
+TBool
+OsInit(void);
 
 #endif

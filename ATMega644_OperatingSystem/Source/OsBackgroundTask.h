@@ -17,7 +17,7 @@ typedef void (*TBgFunction)(void* aUserData); // function pointer
 
 struct TBgElementStruct
 {
-	TBgElement next;
+	TBgElement Next;
 	TBgFunction Function;
 	void * UserData;
 };
@@ -25,7 +25,7 @@ struct TBgElementStruct
 typedef struct
 {
 	TBgElement First;
-
+	TBgElement ExecuteNext;
 }TBgtListHeader;
 
 
@@ -40,7 +40,7 @@ TBool
 OSBackgroundTaskRemove( TBgFunction	aFunction,
 						void *		aUserData);
 
-TBool
+void
 OSBackgroundTaskExecute( void );
 
 #endif

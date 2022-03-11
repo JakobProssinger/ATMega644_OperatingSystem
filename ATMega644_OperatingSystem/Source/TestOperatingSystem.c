@@ -6,13 +6,44 @@
  */ 
 
 #include <avr/io.h>
-#include "OsBackgroundTask.h"
+#include "Os.h"
+
+void TestBgTask1(void);
+
+void TestTask1(void * UserData);
 
 int main(void)
 {
     /* Replace with your application code */
     while (1) 
     {
+		TestBgTask1();
     }
 }
 
+typedef struct 
+{
+	unsigned int Counter;
+}TUserData1; 
+
+
+void TestTask1(void * aUserData){
+	TUserData1 * UserData = ( TUserData1 * ) aUserData;
+	
+	UserData->Counter++;
+}
+
+void TestBgTask1(void)
+{
+	OsInit();
+	
+	TUserData1 UserData1;
+	UserData1.Counter = 0;
+	OSBackgroundTaskAddTask( TestTask1, &UserData1 );
+	
+	while ( 1 )
+	{
+		OSBackgroundTaskExecute();
+		
+	}
+}

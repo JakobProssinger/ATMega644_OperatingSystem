@@ -7,3 +7,13 @@
 
 #include <avr/io.h>
 #include "Os.h"
+#include "OsBackgroundTask.h"
+
+TBool
+OsInit(void)
+{
+	OSBackgroundTaskInit();	
+	
+	return ETRUE;
+}
+
