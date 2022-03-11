@@ -26,6 +26,7 @@ typedef struct
 {
 	TBgElement First;
 	TBgElement ExecuteNext;
+	unsigned int Size;
 }TBgtListHeader;
 
 

@@ -14,7 +14,6 @@ void TestTask1(void * UserData);
 
 int main(void)
 {
-    /* Replace with your application code */
     while (1) 
     {
 		TestBgTask1();
@@ -24,8 +23,7 @@ int main(void)
 typedef struct 
 {
 	unsigned int Counter;
-}TUserData1; 
-
+}TUserData1;  
 
 void TestTask1(void * aUserData){
 	TUserData1 * UserData = ( TUserData1 * ) aUserData;
@@ -45,5 +43,9 @@ void TestBgTask1(void)
 	{
 		OSBackgroundTaskExecute();
 		
+		if(UserData1.Counter == 5)
+		{
+			OSBackgroundTaskRemove(TestTask1, &UserData1);
+		}
 	}
 }

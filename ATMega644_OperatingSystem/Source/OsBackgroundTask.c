@@ -17,8 +17,8 @@ static TBgtListHeader BgList;
 void
 OSBackgroundTaskInit( void )
 {
-	 memset( &BgList, 0, sizeof(BgList)); // allocate and set to 0
-	
+	memset( &BgList, 0, sizeof(BgList)); // allocate and set to 0
+
 }
 
 TBool
@@ -28,23 +28,22 @@ OSBackgroundTaskAddTask( TBgFunction	aFunction,
 	TBgElement bgElement;
 	TBgElement nextElement;
 	bgElement = calloc ( sizeof( * bgElement), 1);
+	// return if element could not be created
 	if ( ! bgElement )
 		return EFALSE;
 	
-	if ( BgList.First )
-	{
-		nextElement = BgList.First;
-		while (nextElement != NULL)
-			nextElement = nextElement->Next;
+	if (  ! BgList.First )
+		BgList.First = bgElement; //if no list element exists, set new element as first element
+		
+	nextElement = BgList.First;
+	while (nextElement != NULL) // Search for last element in list
+		nextElement = nextElement->Next;
 			
-		nextElement->Next = bgElement;
-	} else {
-		BgList.First = bgElement;
-	}
+	nextElement->Next = bgElement; // set last element in list
 	
 	bgElement->Function = aFunction;
 	bgElement->UserData = aUserData;
-	
+	BgList.Size += 1;
 	return ETRUE;
 }
 
@@ -52,25 +51,27 @@ TBool
 OSBackgroundTaskRemove(  TBgFunction	aFunction,
 						 void *			aUserData )
 {
-	if (BgList.First == NULL)
+	if ( ! BgList.First ) // list is empty 
 		return EFALSE;
 		
 	TBgElement nextElement = BgList.First;
-	while (nextElement)
+	TBgElement lastElement = BgList.First;
+	
+	while(nextElement != NULL) // check for end of list
 	{
-		if(nextElement->Function == aFunction 
-			&& nextElement->Function == aUserData)
+		if ( nextElement->Function == aFunction && nextElement->UserData == aUserData)
 		{
-			
+			lastElement->Next = nextElement->Next;
+			free(nextElement); // free memory
+			BgList.Size -= 1;
+			return ETRUE;
 		}
-		nextElement = nextElement->Next;
-		if(nextElement->Next == NULL)
-			return EFALSE;
 		
+		lastElement = nextElement;
+		nextElement = nextElement->Next;
 	}
-	
-	
-	return ETRUE;
+
+	return EFALSE;
 }
 
 void
