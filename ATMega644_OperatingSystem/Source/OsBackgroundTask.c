@@ -66,15 +66,23 @@ OSBackgroundTaskRemove(  TBgFunction	aFunction,
 	TBgElement nextElement = BgList.First;
 	TBgElement lastElement = BgList.First;
 
-	while(nextElement != NULL) // check for end of list
+	while( nextElement != NULL) // check for end of list
 	{
 		if ( nextElement->Function == aFunction && nextElement->UserData == aUserData)
 		{
-			lastElement->Next = nextElement->Next;
+			if (nextElement == BgList.First)
+			{
+				BgList.First = nextElement->Next;
+				if(BgList.Size == 1)
+					BgList.First = NULL;
+			} 
+			else
+			{
+				lastElement->Next = nextElement->Next;
+			}
+			
 			free(nextElement); // delete element from memory
 			BgList.Size -= 1;
-			if(BgList.Size == 0)
-				BgList.First = NULL;
 			return ETRUE;
 		}
 		

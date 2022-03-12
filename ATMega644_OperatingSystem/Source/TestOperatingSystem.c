@@ -38,25 +38,35 @@ void TestBgTask1(void)
 	TUserData1 UserData1;
 	UserData1.Counter = 0;
 	TUserData1 UserData2;
-	UserData2.Counter = 5;
+	UserData2.Counter = 0;
+	TUserData1 UserData3;
+	UserData3.Counter = 0;
+	
 	OSBackgroundTaskAddTask( TestTask1, &UserData1 );
 	OSBackgroundTaskAddTask( TestTask1, &UserData2 );
+	OSBackgroundTaskAddTask( TestTask1, &UserData3 );
 
 	
 	while ( 1 )
 	{
 		OSBackgroundTaskExecute();
 		
-		if(UserData1.Counter == 5)
+		if(UserData1.Counter == 1) // delete first
 		{
 			OSBackgroundTaskRemove(TestTask1, &UserData1);
 			UserData1.Counter++;
 		}
 		
-		if(UserData2.Counter == 7)
+		if(UserData2.Counter == 2) //delete second
 		{
 			OSBackgroundTaskRemove(TestTask1, &UserData2);
 			UserData2.Counter++;
+		}
+		
+		if(UserData3.Counter == 3) // delete third
+		{
+			OSBackgroundTaskRemove(TestTask1, &UserData3);
+			UserData3.Counter++;
 		}
 	}
 }
