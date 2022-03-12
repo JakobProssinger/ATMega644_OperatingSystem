@@ -37,7 +37,11 @@ void TestBgTask1(void)
 	
 	TUserData1 UserData1;
 	UserData1.Counter = 0;
+	TUserData1 UserData2;
+	UserData2.Counter = 5;
 	OSBackgroundTaskAddTask( TestTask1, &UserData1 );
+	OSBackgroundTaskAddTask( TestTask1, &UserData2 );
+
 	
 	while ( 1 )
 	{
@@ -46,6 +50,13 @@ void TestBgTask1(void)
 		if(UserData1.Counter == 5)
 		{
 			OSBackgroundTaskRemove(TestTask1, &UserData1);
+			UserData1.Counter++;
+		}
+		
+		if(UserData2.Counter == 7)
+		{
+			OSBackgroundTaskRemove(TestTask1, &UserData2);
+			UserData2.Counter++;
 		}
 	}
 }

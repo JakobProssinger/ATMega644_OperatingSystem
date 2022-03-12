@@ -25,6 +25,7 @@ TBool
 OSBackgroundTaskAddTask( TBgFunction	aFunction,
 						 void *			aUserData)
 {
+// Function to add task to background task list
 	TBgElement bgElement;
 	TBgElement nextElement;
 	bgElement = calloc ( sizeof( * bgElement), 1);
@@ -32,11 +33,18 @@ OSBackgroundTaskAddTask( TBgFunction	aFunction,
 	if ( ! bgElement )
 		return EFALSE;
 	
-	if (  ! BgList.First )
-		BgList.First = bgElement; //if no list element exists, set new element as first element
+	if (  ! BgList.First ) // list is empty
+	{
+		BgList.First = bgElement; // set new element as first element
+		BgList.ExecuteNext = bgElement;
+		bgElement->Function = aFunction;
+		bgElement->UserData = aUserData;
+		BgList.Size += 1;
+		return ETRUE;
+	}
 		
 	nextElement = BgList.First;
-	while (nextElement != NULL) // Search for last element in list
+	while (nextElement->Next != NULL) // Search for last element in list
 		nextElement = nextElement->Next;
 			
 	nextElement->Next = bgElement; // set last element in list
@@ -51,19 +59,22 @@ TBool
 OSBackgroundTaskRemove(  TBgFunction	aFunction,
 						 void *			aUserData )
 {
+// Function to remove task from background task list
 	if ( ! BgList.First ) // list is empty 
 		return EFALSE;
 		
 	TBgElement nextElement = BgList.First;
 	TBgElement lastElement = BgList.First;
-	
+
 	while(nextElement != NULL) // check for end of list
 	{
 		if ( nextElement->Function == aFunction && nextElement->UserData == aUserData)
 		{
 			lastElement->Next = nextElement->Next;
-			free(nextElement); // free memory
+			free(nextElement); // delete element from memory
 			BgList.Size -= 1;
+			if(BgList.Size == 0)
+				BgList.First = NULL;
 			return ETRUE;
 		}
 		
@@ -77,7 +88,8 @@ OSBackgroundTaskRemove(  TBgFunction	aFunction,
 void
 OSBackgroundTaskExecute( void )
 {
-	if ( !BgList.ExecuteNext ) // End of loop
+// Function to start the next background task
+	if ( !BgList.ExecuteNext )
 		BgList.ExecuteNext = BgList.First;
 		
 	if ( BgList.ExecuteNext )
