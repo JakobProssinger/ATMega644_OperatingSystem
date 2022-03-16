@@ -73,8 +73,6 @@ OSBackgroundTaskRemove(  TBgFunction	aFunction,
 			if (nextElement == BgList.First)
 			{
 				BgList.First = nextElement->Next;
-				if(BgList.Size == 1)
-					BgList.First = NULL;
 			} 
 			else
 			{
