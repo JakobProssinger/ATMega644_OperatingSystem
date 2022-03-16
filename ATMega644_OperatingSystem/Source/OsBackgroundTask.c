@@ -68,8 +68,13 @@ OSBackgroundTaskRemove(  TBgFunction	aFunction,
 
 	while( nextElement != NULL) // check for end of list
 	{
+		// searching for fitting element
 		if ( nextElement->Function == aFunction && nextElement->UserData == aUserData)
 		{
+			//manage ExecuteNext of List 
+			if (BgList.ExecuteNext == nextElement)
+				BgList.ExecuteNext = nextElement->Next;
+			
 			if (nextElement == BgList.First)
 			{
 				BgList.First = nextElement->Next;
