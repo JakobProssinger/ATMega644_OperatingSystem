@@ -14,8 +14,8 @@ typedef void (*TTimerFunction)(void* aUserData); //Function pointer
 
 typedef struct 
 {
-	unsigned long aCpuClock;
-	unsigned long aResolution;
+	unsigned long CpuClock;
+	unsigned long Resolution;
 }TTimerInitParams;
 
 typedef TBool (*TTimerInit)(TTimerInitParams); //Function pointer

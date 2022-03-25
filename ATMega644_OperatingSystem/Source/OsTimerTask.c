@@ -1,7 +1,7 @@
   /*
    * OsTimerTask.c
    *
-   * Created: 09.03.2022 14:28:
+   * Created: 09.03.2022 14:28:56
    * Author : jakob
    */ 
   
@@ -10,13 +10,28 @@
 #include "HtlStddef.h"
 #include "OsTimerTask.h"
   
-OsTimerTaskInit(
-unsigned long aCpuClk,
-unsigned long aTimerInterval
-);
+void OsTimerTaskInit(	unsigned long aCpuClk,
+						unsigned long aTimerInterval)
+{
+
+}
     
-OsTimerTaskAddTask();
-OsTimerTaskRemoveTask();
-  
-OsTimerTaskStart();
-OsTimerTaskStop();
+void OsTimerTaskAddTask()
+{
+
+}
+
+void OsTimerTaskRemoveTask()
+{
+
+}
+
+void OsTimerTaskStart()
+{
+
+}
+
+void OsTimerTaskStop()
+{
+
+}
