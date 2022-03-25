@@ -10,28 +10,30 @@
 #include "HtlStddef.h"
 #include "OsTimerTask.h"
   
-void OsTimerTaskInit(	unsigned long aCpuClk,
+TBool OsTimerTaskInit(	unsigned long aCpuClk,
 						unsigned long aTimerInterval)
 {
-
+	return ETRUE;
 }
     
-void OsTimerTaskAddTask()
+TBool OsTimerTaskAddTask()
 {
-
+	
+	return ETRUE;
 }
 
-void OsTimerTaskRemoveTask()
+TBool OsTimerTaskRemoveTask()
 {
 
+	return ETRUE;
 }
 
-void OsTimerTaskStart()
+TBool OsTimerTaskStart()
 {
-
+	return ETRUE;
 }
 
-void OsTimerTaskStop()
+TBool OsTimerTaskStop()
 {
-
+	return ETRUE;
 }

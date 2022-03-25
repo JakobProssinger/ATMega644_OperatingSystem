@@ -8,15 +8,15 @@
 #ifndef OSTIMERTASK_H
 #define OSTIMERTASK_H
 
-void OsTimerTaskInit(
+TBool OsTimerTaskInit(
 unsigned long aCpuClk,
 unsigned long aTimerInterval
 );
 
-void OsTimerTaskAddTask();
-void OsTimerTaskRemoveTask();
+TBool OsTimerTaskAddTask();
+TBool OsTimerTaskRemoveTask();
 
-void OsTimerTaskStart();
-void OsTimerTaskStop();
+TBool OsTimerTaskStart();
+TBool OsTimerTaskStop();
 
 #endif
