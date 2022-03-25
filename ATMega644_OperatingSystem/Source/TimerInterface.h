@@ -20,13 +20,12 @@ typedef struct
 
 typedef TBool (*TTimerInit)(TTimerInitParams); //Function pointer
 
-typedef TBool (*TTimerSetInterruptFunction)(	TTimerFunction * aFunction,
+typedef void (*TTimerSetInterruptFunction)(		TTimerFunction * aFunction,
 												void * aUserData);	//Function pointer
 
 typedef void (*TTimerStart)( void );	//Function pointer
 
 typedef void (*TTimerStop)( void );	//Function pointer
-
 
 typedef struct
 {

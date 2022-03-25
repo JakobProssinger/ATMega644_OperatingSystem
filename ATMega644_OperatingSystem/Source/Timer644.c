@@ -31,8 +31,7 @@ void *         Timer644FunctionTimer1CaptureUserData;
 /**** Declaration of private functions */
 static TBool
 Timer644Init_(
-unsigned long aCpuClk,
-unsigned long aTimerIntervall );
+TTimerInitParams aParams);
 
 static TBool
 Timer644Init0(
@@ -90,10 +89,9 @@ Timer644GetInterface(
 
 static TBool
 Timer644Init_( 
- unsigned long aCpuClk,
- unsigned long aTimerIntervall )
+ TTimerInitParams aParams)
  {
-   return Timer644Init( aCpuClk, aTimerIntervall, TIMER_MODE_CTC, TIMER_NO_0 );
+   return Timer644Init( aParams.CpuClock, aParams.Resolution, TIMER_MODE_CTC, TIMER_NO_0 );
  }
 
 
