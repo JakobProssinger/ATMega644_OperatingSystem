@@ -16,24 +16,26 @@ TBool OsTimerTaskInit(	unsigned long aCpuClk,
 	return ETRUE;
 }
     
-TBool OsTimerTaskAddTask()
+TBool OsTimerTaskAddTask(
+	TTimerTaskFunction* aFunction,
+	void*				aUserdata)
 {
 	
 	return ETRUE;
 }
 
-TBool OsTimerTaskRemoveTask()
+TBool OsTimerTaskRemoveTask(
+	TTimerTaskFunction* aFunction,
+	void*				aUserdata)
 {
 
 	return ETRUE;
 }
 
-TBool OsTimerTaskStart()
+void OsTimerTaskStart()
 {
-	return ETRUE;
 }
 
-TBool OsTimerTaskStop()
+void OsTimerTaskStop()
 {
-	return ETRUE;
 }

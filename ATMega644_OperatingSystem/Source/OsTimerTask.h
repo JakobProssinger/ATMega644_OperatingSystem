@@ -8,15 +8,24 @@
 #ifndef OSTIMERTASK_H
 #define OSTIMERTASK_H
 
+typedef void (*TTimerTaskFunction)(
+	void *			aUserData,
+	unsigned long	aTimerTicks);
+
 TBool OsTimerTaskInit(
-unsigned long aCpuClk,
-unsigned long aTimerInterval
-);
+	unsigned long aCpuClk,
+	unsigned long aTimerInterval);
 
-TBool OsTimerTaskAddTask();
-TBool OsTimerTaskRemoveTask();
+TBool OsTimerTaskAddTask( 
+	TTimerTaskFunction* aFunction,
+	void*				aUserdata);
+	
+TBool OsTimerTaskRemoveTask(
+	TTimerTaskFunction* aFunction,
+	void*				aUserdata);
 
-TBool OsTimerTaskStart();
-TBool OsTimerTaskStop();
+void OsTimerTaskStart();
+
+void OsTimerTaskStop();
 
 #endif

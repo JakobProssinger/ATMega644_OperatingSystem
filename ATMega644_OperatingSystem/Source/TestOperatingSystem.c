@@ -7,6 +7,7 @@
 
 #include <avr/io.h>
 #include "Os.h"
+#include "OsBackgroundTask.h"
 
 void TestBgTask1(void);
 

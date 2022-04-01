@@ -206,6 +206,10 @@
       <SubType>compile</SubType>
       <Link>Timer.c</Link>
     </Compile>
+    <Compile Include="Source\Timer.h">
+      <SubType>compile</SubType>
+      <Link>Timer.h</Link>
+    </Compile>
     <Compile Include="Source\Timer644.c">
       <SubType>compile</SubType>
       <Link>Timer644.c</Link>
